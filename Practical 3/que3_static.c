@@ -1,12 +1,17 @@
 #include <stdlib.h>   
-#include <stdio.h>   
+#include <stdio.h>  
+#include <time.h> 
 #include <omp.h>      
 
-#define ARRAY_SIZE 8     
-#define NUM_THREADS 8   
+#define ARRAY_SIZE 1000   
+#define NUM_THREADS 8
 
 int main(int argc, char *argv[]) 
 {
+	clock_t start,end;
+	
+	start=clock();
+	
 	int * a,* b,* c;
         
     int n = ARRAY_SIZE;                 
@@ -40,7 +45,7 @@ int main(int argc, char *argv[])
 		
 		printf("Thread %d works on element%d\n", omp_get_thread_num(), i);
     }
-
+	/*
 	printf("\nFirst array     :");
 	for(int i=0;i<n;i++)
 	{
@@ -58,10 +63,15 @@ int main(int argc, char *argv[])
 	{
 		printf("  %d",c[i]);
 	}
-        
+        */
 	printf("\n");
 	
     free(a);  free(b); free(c);
+	
+	end=clock();
+	
+	double time_taken =(double)(end - start)/(double)(CLOCKS_PER_SEC);;
+    printf("Time taken by program is : %f sec",time_taken); 
 	
 	return 0;
 }
